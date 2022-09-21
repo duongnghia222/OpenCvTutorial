@@ -8,7 +8,7 @@ print("hi")
 
 
 # # show video
-# cap = cv2.VideoCapture("resources/bai du thi.mp4")
+# cap = cv2.VideoCapture("resources/sampleVideo.mp4")
 # while True:
 #     success, img = cap.read()
 #     cv2.imshow("Video", img)
