@@ -153,7 +153,7 @@ def getContours(img):
             else:
                 objType = "None"
             cv2.rectangle(imgCour,(x,y),(x+w,y+h), (0,0,0), 2)
-            cv2.putText(imgCour,objType,(x+(w//2) - 15, y+(h//2)),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 2)
+            cv2.putText(imgCour,objType,(x+(w//2) - 30, y+(h//2)),cv2.FONT_HERSHEY_SIMPLEX, 0.74, (0,0,0), 2)
 
 path = "resources/shape.png"
 # imgOri = cv2.imread(path)
