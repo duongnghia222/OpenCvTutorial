@@ -134,7 +134,8 @@ def getContours(img):
         print(area)
 
 path = "resources/shape.png"
-img = cv2.imread(path)
+imgOri = cv2.imread(path)
+img = imgOri[120:580,:]
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 imgBlur = cv2.GaussianBlur(imgGray, (7,7), 1)
 imgCanny = cv2.Canny(imgBlur,50,50)
