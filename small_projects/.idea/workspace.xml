@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="88771285-af99-4194-b4ab-a8abd14bf1a3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../opencv_tutorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../opencv_tutorial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,11 +33,32 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Hoc tap/Lap trinh/pythonProject/OpenCvPython/small_projects&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Hoc tap/Lap trinh/pythonProject/OpenCvPython/small_projects/objTracking/objTracking.py&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.virtualPaint">
+  <component name="RunManager" selected="Python.opencv_tutorial">
+    <configuration name="objTracking" type="PythonConfigurationType" factoryName="Python">
+      <module name="small_projects" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\HP\anaconda3\envs\OpenCvPython\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/objTracking" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/objTracking/objTracking.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="opencv_tutorial" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="small_projects" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -44,7 +66,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\HP\anaconda3\envs\OpenCvPython\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -81,6 +103,7 @@
     </configuration>
     <list>
       <item itemvalue="Python.virtualPaint" />
+      <item itemvalue="Python.objTracking" />
       <item itemvalue="Python.opencv_tutorial" />
     </list>
     <recent_temporary>
