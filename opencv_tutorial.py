@@ -192,47 +192,119 @@ print("hi")
 
 
 
-# color picker
-# webcam
+# # color picker
+# cap = cv2.VideoCapture(0)
+# cap.set(3, 720) # width
+# cap.set(4, 1080) # height
+# cap.set(10, 100) # brightness
+#
+# def empty(x):
+#     pass
+#
+# cv2.namedWindow("trackBars")
+# cv2.resizeWindow("trackBars", 640, 240)
+# cv2.createTrackbar("Hue Min", "trackBars", 29, 179, empty)
+# cv2.createTrackbar("Hue Max", "trackBars", 62, 179, empty)
+# cv2.createTrackbar("Sat Min", "trackBars", 26, 255, empty)
+# cv2.createTrackbar("Sat Max", "trackBars", 255, 255, empty)
+# cv2.createTrackbar("Val Min", "trackBars", 170, 255, empty)
+# cv2.createTrackbar("Val Max", "trackBars", 255, 255, empty)
+# while True:
+#     _, img = cap.read()
+#     #cv2.imshow("WebCam", img)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):  # press q to quit
+#         break
+#     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+#     h_min = cv2.getTrackbarPos("Hue Min", "trackBars")
+#     h_max = cv2.getTrackbarPos("Hue Max", "trackBars")
+#     s_min = cv2.getTrackbarPos("Sat Min", "trackBars")
+#     s_max = cv2.getTrackbarPos("Sat Max", "trackBars")
+#     v_min = cv2.getTrackbarPos("Val Min", "trackBars")
+#     v_max = cv2.getTrackbarPos("Val Max", "trackBars")
+#     print(h_min,h_max,s_min,s_max,v_min,v_max)
+#     lower = np.array([h_min,s_min,v_min])
+#     upper = np.array([h_max,s_max,v_max])
+#     mask = cv2.inRange(imgHSV,lower,upper)
+#     imgRes = cv2.bitwise_and(img, img, mask=mask)
+#     #cv2.imshow("Original", img)
+#     #cv2.imshow("HSV", imgHSV)
+#     cv2.imshow("Mask", mask)
+#     cv2.imshow("Result", imgRes)
+#     cv2.waitKey(1)
+
+
+
+#
+# img = cv2.imread("resources/sudoku.png")
+# gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# edges = cv2.Canny(gray, 50, 150, apertureSize=3)
+# cv2.imshow('edges', edges)
+# lines = cv2.HoughLines(edges, 1, np.pi / 180, 330)
+#
+# for line in lines:
+#     rho,theta = line[0]
+#     a = np.cos(theta)
+#     b = np.sin(theta)
+#     x0 = a * rho
+#     y0 = b * rho
+#     # x1 stores the rounded off value of (r * cos(theta) - 1000 * sin(theta))
+#     x1 = int(x0 + 1000 * (-b))
+#     # y1 stores the rounded off value of (r * sin(theta)+ 1000 * cos(theta))
+#     y1 = int(y0 + 1000 * (a))
+#     # x2 stores the rounded off value of (r * cos(theta)+ 1000 * sin(theta))
+#     x2 = int(x0 - 1000 * (-b))
+#     # y2 stores the rounded off value of (r * sin(theta)- 1000 * cos(theta))
+#     y2 = int(y0 - 1000 * (a))
+#     # ######
+#     # x12 = int(x0 + (-b))
+#     # # y1 stores the rounded off value of (r * sin(theta)+ 1000 * cos(theta))
+#     # y12 = int(y0 + (a))
+#     # # x2 stores the rounded off value of (r * cos(theta)+ 1000 * sin(theta))
+#     # x22 = int(x0 - (-b))
+#     # # y2 stores the rounded off value of (r * sin(theta)- 1000 * cos(theta))
+#     # y22 = int(y0 - (a))
+#     # #####
+#     cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+#
+#     # img2 = img.copy()
+#     # cv2.line(img2, (x12, y12), (x22, y22), (0, 0, 255), 2)
+#     # print(gray.shape)
+#
+# cv2.imshow('image', img)
+# # cv2.imshow('image2', img2)
+# k = cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+
+# hough circle
 cap = cv2.VideoCapture(0)
 cap.set(3, 720) # width
 cap.set(4, 1080) # height
 cap.set(10, 100) # brightness
 
-def empty(x):
-    pass
-
-cv2.namedWindow("trackBars")
-cv2.resizeWindow("trackBars", 640, 240)
-cv2.createTrackbar("Hue Min", "trackBars", 29, 179, empty)
-cv2.createTrackbar("Hue Max", "trackBars", 62, 179, empty)
-cv2.createTrackbar("Sat Min", "trackBars", 26, 255, empty)
-cv2.createTrackbar("Sat Max", "trackBars", 255, 255, empty)
-cv2.createTrackbar("Val Min", "trackBars", 170, 255, empty)
-cv2.createTrackbar("Val Max", "trackBars", 255, 255, empty)
+prevCircle = None
+dist = lambda x1,y1,x2,y2: (x1-x2)**2*+(y1-y2)**2
 while True:
-    _, img = cap.read()
-    #cv2.imshow("WebCam", img)
-    if cv2.waitKey(1) & 0xFF == ord('q'):  # press q to quit
+    success, img = cap.read()
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (17,17), 0)
+    blur2 = cv2.medianBlur(gray, 5)
+    rows = gray.shape[0]
+    circles = cv2.HoughCircles(blur2, cv2.HOUGH_GRADIENT, 1,
+                               minDist= rows/8, param1= 210, param2= 50, minRadius= 10, maxRadius= 150)
+    if circles is not None:
+        circles = np.uint16(np.around(circles))
+        print(circles)
+        chosen = None
+        for i in circles[0, :]:
+            if chosen is None: chosen = i
+            if prevCircle is not None:
+                if dist(chosen[0], chosen[1], prevCircle[0], prevCircle[1]) <= dist(i[0], i[1], prevCircle[0], prevCircle[1]):
+                    chosen = i
+            cv2.circle(img, (chosen[0], chosen[1]), 1, (0, 100, 100), 3)
+            cv2.circle(img, (chosen[0], chosen[1]), chosen[2], (0, 0, 255), 3)
+            prevCircle = chosen
+    cv2.imshow("WebCam", img)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'): # press q to quit
         break
-    imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    h_min = cv2.getTrackbarPos("Hue Min", "trackBars")
-    h_max = cv2.getTrackbarPos("Hue Max", "trackBars")
-    s_min = cv2.getTrackbarPos("Sat Min", "trackBars")
-    s_max = cv2.getTrackbarPos("Sat Max", "trackBars")
-    v_min = cv2.getTrackbarPos("Val Min", "trackBars")
-    v_max = cv2.getTrackbarPos("Val Max", "trackBars")
-    print(h_min,h_max,s_min,s_max,v_min,v_max)
-    lower = np.array([h_min,s_min,v_min])
-    upper = np.array([h_max,s_max,v_max])
-    mask = cv2.inRange(imgHSV,lower,upper)
-    imgRes = cv2.bitwise_and(img, img, mask=mask)
-    #cv2.imshow("Original", img)
-    #cv2.imshow("HSV", imgHSV)
-    cv2.imshow("Mask", mask)
-    cv2.imshow("Result", imgRes)
-    cv2.waitKey(1)
-
-
-
-
